@@ -1,4 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Sudoku } from './components/Sudoku';
 
-ReactDOM.render(React.createElement("div", {}), document.getElementById("root"));
+ReactDOM.render(<Sudoku />, document.getElementById("app"));
