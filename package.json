@@ -1,0 +1,29 @@
+{
+  "name": "scaffold-react",
+  "version": "0.0.1",
+  "description": "Scaffolding tool for react with typescript",
+  "main": "dist/app.cjs.js",
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "test": "test"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "rollup"
+  ],
+  "author": "Benno Selig",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "rollup": "^2.7.3",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "typescript": "^3.8.3"
+  }
+}
