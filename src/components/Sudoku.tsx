@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Cell } from './Cell';
+import { connect } from "react-redux";
+import { Cell } from "./Cell";
+import { ApplicationState } from "../store";
+import { Givens } from "../store/reducers/givens";
 
-type Givens = { [id: string]: string };
-
-const initialGivens: Givens = {
-  r1c1: "1",
-  r9c2: "9",
-};
-
-export const Sudoku = () => {
-  const [givens] = useState(initialGivens);
+const make = ({ givens }: SudokuProps) => {
   const [cells, setCells] = useState([]);
 
   useEffect(() => {
     setCells(prepareCells(givens));
-  }, [givens]);
+  });
 
   return <div>{cells.map((item) => item)}</div>;
 };
@@ -25,7 +20,8 @@ const prepareCells = (givens: Givens) => {
   let row = 1;
   let col = 1;
 
-  while (cellcount < 81) { // gives 81 Cells
+  while (cellcount < 81) {
+    // gives 81 Cells
     const id = `r${row}c${col++}`;
 
     elements.push(<Cell key={id} id={id} value={givens[id] || "empty"} />);
@@ -39,4 +35,13 @@ const prepareCells = (givens: Givens) => {
   }
 
   return elements;
+};
+
+const mapStateToProps = ({ givens }: ApplicationState) => ({
+  givens,
+});
+
+export const Sudoku = connect(mapStateToProps)(make);
+export type SudokuProps = {
+  givens: Givens;
 };
