@@ -1,0 +1,9 @@
+.board {
+    display: grid;
+    background-color: black;
+    padding: 5px;
+    width: 900px;
+    height: 900px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
