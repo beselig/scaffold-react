@@ -1,0 +1,29 @@
+.cell {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color: white;
+
+    .value {
+        font-size: 4rem;
+        line-height: 0;
+        text-align: center;
+    }
+}
+
+.pencilmarks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 100%;
+	width: 100%;
+
+    > span {
+        vertical-align: middle;
+        text-align: center;
+
+		> p {
+            line-height: 2rem;
+        }
+    }
+}

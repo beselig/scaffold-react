@@ -12,7 +12,7 @@ type CellProps = {
 export const Cell = ({
     id,
     value,
-    pencilmarks,
+    pencilmarks
 }: CellProps): JSX.Element => (
     <div className="cell" id={id}>
         {value ? (

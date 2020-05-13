@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Cell } from "../Cell";
 import { ApplicationState } from "../../store";
 import { Givens } from "../../store/reducers/givens";
-import "./component.css";
+import "./component.scss";
 import { Box } from "./../Box/index";
 
 const make = ({ givens }: SudokuProps) => {
@@ -13,24 +13,17 @@ const make = ({ givens }: SudokuProps) => {
         setCells(prepareBoxes(givens));
     }, []);
 
-    // return <div className="Sudoku">{prepareBoxes()}</div>;
-
-    return (
-        <div className="Sudoku">
-            <div className="board">{cells.map((item) => item)}</div>
-        </div>
-    );
+    return <div className="board">{cells.map((item) => item)}</div>;
 };
 
 const prepareBoxes = (givens: Givens) => {
     const boxes: Array<JSX.Element> = [];
-    let cellcount = 0;
 
-    for (let i = 0; i < 9; ++i) {
-        const cellIds = [];
+    for (let i = 0; i < 9; i++) {
+        const cellIds: Array<string> = [];
 
-        for (let j = 0; j < 9; ++j) {
-            cellIds.push(`r${i + 1}c${j + 1}`);
+        for (let j = 0; j < 9; j++) {
+            cellIds.push(createCellId({ row: i + 1, col: j + 1 }));
         }
 
         boxes.push(
@@ -39,7 +32,7 @@ const prepareBoxes = (givens: Givens) => {
                     <Cell
                         key={cellId}
                         id={cellId}
-                        value={`box-${i}--${givens[cellId] || "FOO"}`}
+                        value={givens[cellId]}
                     />
                 ))}
             </Box>,
@@ -48,6 +41,12 @@ const prepareBoxes = (givens: Givens) => {
 
     return boxes;
 };
+
+/**
+ * creates ID with format `r<row>c<col>`
+ */
+const createCellId = ({ row, col }: { row: number; col: number }) =>
+    `r${row}c${col}`;
 
 const mapStateToProps = ({ givens }: ApplicationState) => ({
     givens,
