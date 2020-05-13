@@ -1,12 +1,17 @@
 import { createStore, combineReducers } from "redux";
-import { givens, Givens } from "./reducers/givens";
+import { givens, GivensState } from "./reducers/givens";
+import { cells, CellsState } from "./reducers/cells";
 
 export type ApplicationState = {
-    givens: Givens;
+    cells: CellsState;
+    givens: GivensState;
 };
 
 export const store = createStore(
     combineReducers({
+        cells,
         givens,
     }),
 );
+
+export { selectCellValue } from './selectors'

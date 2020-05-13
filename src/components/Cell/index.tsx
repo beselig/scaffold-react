@@ -1,19 +1,10 @@
 import React from "react";
 import "./component.scss";
+import { CellState } from "../../store/reducers/cells";
 
-type CellProps = {
-    id: string;
-    value: string;
-    invalid?: boolean;
-    selected?: boolean;
-    pencilmarks?: string[];
-};
+type CellProps = CellState;
 
-export const Cell = ({
-    id,
-    value,
-    pencilmarks
-}: CellProps): JSX.Element => (
+export const Cell = ({ id, value, pencilmarks }: CellProps): JSX.Element => (
     <div className="cell" id={id}>
         {value ? (
             <p className="value">{value}</p>

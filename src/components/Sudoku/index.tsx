@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Cell } from "../Cell";
 import { ApplicationState } from "../../store";
-import { Givens } from "../../store/reducers/givens";
+import { GivensState } from "../../store/reducers/givens";
 import "./component.scss";
 import { Box } from "./../Box/index";
 
 const make = ({ givens }: SudokuProps) => {
-    const [cells, setCells] = useState([]);
+	const [cells, setCells] = useState([]);
 
     useEffect(() => {
         setCells(prepareBoxes(givens));
-    }, []);
+	}, []);
 
     return <div className="board">{cells.map((item) => item)}</div>;
 };
 
-const prepareBoxes = (givens: Givens) => {
+const prepareBoxes = (givens: GivensState) => {
     const boxes: Array<JSX.Element> = [];
 
     for (let i = 0; i < 9; i++) {
@@ -54,5 +54,5 @@ const mapStateToProps = ({ givens }: ApplicationState) => ({
 
 export const Sudoku = connect(mapStateToProps)(make);
 export type SudokuProps = {
-    givens: Givens;
+    givens: GivensState;
 };
