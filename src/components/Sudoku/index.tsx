@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Cell } from "../Cell";
 import { ApplicationState } from "../../store";
-import { GivensState } from "../../store/reducers/givens";
 import "./component.scss";
 import { Box } from "./../Box/index";
+import { selectCellsValues, CellValues } from "../../store/selectors";
 
-const make = ({ givens }: SudokuProps) => {
-	const [cells, setCells] = useState([]);
+export type SudokuProps = {
+    values: CellValues;
+};
+
+const make = ({ values }: SudokuProps): JSX.Element => {
+    const [cells, setCells] = useState([]);
 
     useEffect(() => {
-        setCells(prepareBoxes(givens));
-	}, []);
+        setCells(prepareBoxes(values));
+    }, []);
 
     return <div className="board">{cells.map((item) => item)}</div>;
 };
 
-const prepareBoxes = (givens: GivensState) => {
+const prepareBoxes = (values: CellValues) => {
     const boxes: Array<JSX.Element> = [];
 
     for (let i = 0; i < 9; i++) {
@@ -29,11 +33,7 @@ const prepareBoxes = (givens: GivensState) => {
         boxes.push(
             <Box id={`box-${i}`}>
                 {cellIds.map((cellId) => (
-                    <Cell
-                        key={cellId}
-                        id={cellId}
-                        value={givens[cellId]}
-                    />
+                    <Cell key={cellId} id={cellId} value={values[cellId]} />
                 ))}
             </Box>,
         );
@@ -45,14 +45,10 @@ const prepareBoxes = (givens: GivensState) => {
 /**
  * creates ID with format `r<row>c<col>`
  */
-const createCellId = ({ row, col }: { row: number; col: number }) =>
-    `r${row}c${col}`;
+const createCellId = ({ row, col }: { row: number; col: number }) => `r${row}c${col}`;
 
-const mapStateToProps = ({ givens }: ApplicationState) => ({
-    givens,
+const mapStateToProps = (state: ApplicationState) => ({
+    values: selectCellsValues(state),
 });
 
 export const Sudoku = connect(mapStateToProps)(make);
-export type SudokuProps = {
-    givens: GivensState;
-};

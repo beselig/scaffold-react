@@ -5,7 +5,18 @@ import { isSetCellValueAction, SetValueActionPayload, CellId } from "../actions/
  * Reducer
  */
 
-const initialState: CellsState = {};
+const initialState: CellsState = {
+    r1c1: {
+		id: "r1c1",
+        value: "1",
+        given: true,
+    },
+    r9c2: {
+		id: "r9c2",
+        value: "9",
+        given: true,
+    },
+};
 
 export const cells: Reducer = (
     state: CellsState = initialState,
@@ -19,13 +30,16 @@ export const cells: Reducer = (
 };
 
 const setCellValue = (state: CellsState, { id, value }: SetValueActionPayload) => {
-    state = {
-        ...state,
-        [id]: {
-            ...state[id],
-            value,
-        },
-    };
+    if (!state[id].given) {
+        state = {
+            ...state,
+            [id]: {
+                ...state[id],
+                value,
+            },
+        };
+	}
+
     return state;
 };
 
@@ -38,9 +52,10 @@ export type CellsState = {
 };
 
 export type CellState = {
-    id: string;
+    id: CellId;
     value: string;
     invalid?: boolean;
     selected?: boolean;
     pencilmarks?: string[];
+    given?: boolean;
 };
